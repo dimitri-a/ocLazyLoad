@@ -9,25 +9,32 @@
 </head>
 <body>
 <h3>Lazy load succeded if you can see 'Hello world' below</h3>
-<div id="example" ng-app="LazyLoadTest" ng-controller="TestController"></div>
+<div id="example" ng-app="LazyLoadTest" ng-controller="TestController">
+
+    <button ng-click="go()">lazy load</button>
+
+</div>
 
 <script>
     angular.module("LazyLoadTest", ["oc.lazyLoad"])
         .controller("TestController", function ($scope, $ocLazyLoad) {
 
-            $ocLazyLoad.load("js/testApp.js").then(function () {
-                console.log('loaded!!');
+            $scope.go = function(){
+                console.log('lazy load');
+                $ocLazyLoad.load("js/testApp.js").then(function () {
+                    console.log('loaded!!');
 
-                var el;
-                var newEl = angular.element('<div>this is a new element</div>')
+                    var el;
+                    var newEl = angular.element('<div>this is a new element</div>')
 
-                el = angular.element('#example');
-                el.append(newEl);
+                    el = angular.element('#example');
+                    el.append(newEl);
 
-            }, function (e) {
-                console.log('errr');
-                console.error(e);
-            })
+                }, function (e) {
+                    console.log('errr');
+                    console.error(e);
+                })
+            };
         });
 </script>
 </body>
